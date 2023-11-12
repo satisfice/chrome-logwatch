@@ -1,0 +1,20 @@
+{
+	"sites": 
+	[
+		"orangehrm",
+		"dentalhub",
+		"onlinegantt"
+	],
+	"patterns":
+	[
+		{
+			"match": "^(?!.*error.*).*source",
+			"say":   "message"
+		},
+		{
+			"match": "error",
+			"say":   "error"
+		}
+	]
+}
+
