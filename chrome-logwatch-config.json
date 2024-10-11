@@ -2,9 +2,13 @@
 	"sites": 
 	[
 		"orangehrm",
-		"dentalhub",
 		"onlinegantt",
-		"\\.xe\\.com"
+		"\\.xe\\.com",
+		"seekr",
+		"tricentis",
+		"cryptpad",
+		"keep.google.com",
+		"portal\\.fccms\\.dss\\.sc\\.gov"
 	],
 	"patterns":
 	[
@@ -16,6 +20,14 @@
 			"match": "error",
 			"say":   "error"
 		}
+	],
+	"wow_phrase":
+	[
+		"Woww!",
+		"Yikes!",
+		"Are you okay?",
+		"Cry-key!",
+		"I'm concerned about this."
 	]
 }
 
