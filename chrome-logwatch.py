@@ -7,14 +7,6 @@ import re
 import json
 import random
 
-wow_phrase = [
-    "Woww!",
-    "Yikes!",
-    "Are you okay?",
-    "Cry-key!",
-    "I'm concerned about this."
-]
-
 engine = pyttsx3.init()
 
 config = {}
@@ -36,11 +28,21 @@ def read_log(f, sleep=3):
                 yield newstuff
                 time.sleep(sleep)
                 newstuff = []
-
+locationlist = []
 for stuff in read_log(filename):
     counts = {}
     for line in stuff:
         print(datetime.datetime.now())
+        if re.search("SATISFICE_CR:(.*?)\", source: chrome-extension",line):
+            res = re.search("SATISFICE_CR:(.*?)\", source: chrome-extension",line)
+            cr_data = json.loads(res.group(1))
+            cr_data[0].pop("time")
+            cr_string = json.dumps(cr_data)
+            if not cr_string in locationlist:
+                print("NEW!")
+                locationlist.append(cr_string)
+            else:
+                print("Already touched...")
         for p in range(len(config["patterns"])):
             if re.search(config["patterns"][p]["match"],line,re.IGNORECASE):
                 for site in config["sites"]:
@@ -57,5 +59,5 @@ for stuff in read_log(filename):
             engine.say("A lot of " + config["patterns"][item]["say"] + ". " + str(counts[item]) + " times in 3 seconds")
             engine.runAndWait()
         elif counts[item] >= 10:
-            engine.say("A lot of " + config["patterns"][item]["say"] + ". " + str(counts[item]) + " times in 3 seconds. " + wow_phrase[random.randint(0,4)])
+            engine.say("A lot of " + config["patterns"][item]["say"] + ". " + str(counts[item]) + " times in 3 seconds. " + config["wow_phrase"][random.randint(0,len(config["wow_phrase"]))])
             engine.runAndWait()
